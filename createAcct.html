@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html><head><title>Create Account</title>
+<link rel="stylesheet" type="text/css" href="create.css">
+<meta charset="UTF-8">
+<script src="jQuery/jQuery2.1.0.js"></script>
+<script src="jQuery/form-validator/jquery.form-validator.js"></script>
+</head><body>
+
+<div class="createForm">
+	<form id="create" method="POST">
+	<h4><u>create account</u></h4>
+	<p>username:<input name="username" data-validation="length alphanumeric"
+		data-validation-length="4-20" data-validation-error-msg="4-20 alphanumeric chars."></p>
+	<p>password:<input type="password" name="password_confirmation" data-validation="length"
+		data-validation-length="min4" data-validation-error-msg="Minimum 4 characters."></p>
+	<p>password:<input type="password" name="password" data-validation="confirmation"
+		data-validation-error-msg="Passwords must match."></p>
+	<p class="subButton"><input type="submit" name="createSubmit" value="create account"></p>
+	<a href="login.php" id="link">login here.</a>
+	</form>
+
+
+	<script>
+	$.validate({
+		modules: 'security'
+	});
+	</script>
+
+	<div class="output" id="output"></div>
+</div>
+
+<script>
+$("#create").submit(function(event){
+	event.preventDefault();
+	$.post(
+		"createAcctServer.php",
+		$("#create").serialize(),
+		function(data){
+			document.getElementById('output').innerHTML = data;
+			document.getElementById('create').reset();
+		}
+	);
+});
+</script>
+
+</body>
+</html>

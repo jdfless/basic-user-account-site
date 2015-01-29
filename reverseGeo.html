@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html><head><title> Geo-Test </title>
+<meta charset = "UTF-8">
+<script src="jQuery/jQuery2.1.0.js"></script>
+</head><body>
+
+<button onclick="get_location()">Show me where I am!</button>
+<script>
+function get_location() 
+{
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(output, handle_error);
+  }
+  else{
+    document.getElementById("fail").innerHTML = "Geolocation is not available on this browser";
+  }
+}
+
+function output(position) 
+{
+  var latitude = position.coords.latitude;
+  var lat = position.coords.latitude;
+  var longitude = position.coords.longitude;
+  var lng = position.coords.longitude;
+  var accuracy = position.coords.accuracy;
+  var url = 'http://maps.google.com/maps?q=' + latitude + "," + longitude;
+  show_link(url);
+  api(lat, lng);
+  
+  latPos = "";
+  if(latitude > 0)
+    latPos = "N";
+  else if(latitude < 0)
+    latPos = "S";
+
+    longPos = "";
+  if(longitude > 0)
+    longPos = "E";
+  else if(longitude < 0)
+    longPos = "W";
+
+  latitude = Math.abs(latitude);
+  longitude = Math.abs(longitude);
+
+  document.getElementById("lat").innerHTML = "Latitude = " + latitude + "&deg; " + latPos;
+  document.getElementById("long").innerHTML = "Longitude = " + longitude + "&deg; " + longPos;
+  document.getElementById("acc").innerHTML = "Accuracy = " + accuracy + " meters";
+}
+
+function handle_error(err) {
+  document.getElementById("fail").innerHTML = "Error code = " + err.code;
+}
+
+function show_link (url) {
+  var link = document.getElementById('link');
+  link.innerHTML = "Show me on Google";
+  document.getElementById('link').setAttribute("href", url);
+}
+
+function api(lat, lng){
+	$apiURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng
+		+ "&sensor=false&key=AIzaSyBoVfooUwEuRkdIo7VuSfaE0bBzjQD9mjo";
+	$.getJSON($apiURL, function(data){
+		var yourLoc = data.results[11].formatted_address; //use 10 for state
+		document.getElementById("country").innerHTML = "You are in: " + yourLoc;
+	});
+}
+</script>
+
+<p id="fail"></p>
+<p id="lat"></p>
+<p id="long"></p>
+<p id="acc"></p>
+<p><a id="link"></a></p>
+<p id="country"></p>
+
+</body>
+</html>

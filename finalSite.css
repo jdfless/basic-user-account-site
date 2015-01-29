@@ -1,0 +1,22 @@
+h1{
+	color: #10B907;
+	text-align: center;
+}
+
+.logout{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	font-family: Helvetica, sans-serif;
+}
+
+.formDiv, .output, #myCountry{
+	text-align: center;
+	font-family: Helvetica, sans-serif;
+}
+
+#loginInfo{
+	text-align: center;
+	position: absolute;
+	bottom: 2px;
+}
