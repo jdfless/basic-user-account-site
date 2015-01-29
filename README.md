@@ -2,4 +2,6 @@ This project uses session variables to determine a user's log in status and only
 
 As of January 2015, the site is still live at: http://web.engr.oregonstate.edu/~flessnej/CS494/494Project/login.php
 
+Logging in can be done using username: user password: pass or by creating an account.
+
 Be aware that the api key used for Google maps has expired so this feature no longer works.
